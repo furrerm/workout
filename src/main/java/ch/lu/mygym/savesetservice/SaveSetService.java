@@ -34,25 +34,21 @@ public class SaveSetService {
     @ResponseBody
     public String getPropertyJSON(@RequestBody String exercise) {
         String exerciseDecoded;
-        /*
         try {
             exerciseDecoded = URLDecoder.decode(exercise, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException ex) {
             throw new RuntimeException(ex.getCause());
         }
-
-         */
-        // String exerciseDecodedAsJsonString = exerciseDecoded.substring(exerciseDecoded.indexOf("{"), exerciseDecoded.lastIndexOf("}")+1);
+        String exerciseDecodedAsJsonString = exerciseDecoded.substring(exerciseDecoded.indexOf("{"), exerciseDecoded.lastIndexOf("}")+1);
         Gson jsonHandler = new Gson();
 
-
-        SupersetDTO supersetDTO = jsonHandler.fromJson(exercise, SupersetDTO.class);
+        SupersetDTO supersetDTO = jsonHandler.fromJson(exerciseDecodedAsJsonString, SupersetDTO.class);
 
         List<SetsEntity> sets = SetConverter.convertSetDTOsToSetEntity(supersetDTO);
 
         setRepository.saveAll(sets);
 
         return null;
-               }
+    }
 
 }
