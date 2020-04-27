@@ -2,8 +2,7 @@ package ch.lu.mygym.supersetservice;
 
 import org.hibernate.Session;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
+
 import java.util.List;
 
 public class ExerciseGroupDataLoader {

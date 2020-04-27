@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @Controller
@@ -33,9 +34,9 @@ public class ExerciseService {
         int id = exerciseDTO.getId();
 
         // List<SetsEntity> setEntities = exerciseRepository.findByExerciseId(id);
-        List<SetsEntity> setEntities = exerciseRepository.entitiesWithMaxTimeStamp(id);
-        List<SetDTO> setDTOs = DTOConverter.coonvertSetEntitiesToDTOs(setEntities);
+        //List<SetsEntity> setEntities = exerciseRepository.entitiesWithMaxTimeStamp(id);
+       // List<SetDTO> setDTOs = DTOConverter.coonvertSetEntitiesToDTOs(setEntities);
 
-        return setDTOs;
+        return null;
     }
 }

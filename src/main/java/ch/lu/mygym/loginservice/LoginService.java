@@ -10,15 +10,25 @@ import com.google.api.client.extensions.appengine.http.UrlFetchTransport;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -74,7 +84,32 @@ token.setTokenid(exerciseDecodedAsJsonString);
         }
     }
     private void verifier(String token){
+        FirebaseOptions options = null;
 
+
+        try {
+           // FileInputStream refreshToken = new FileInputStream("refreshToken.json");
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream refreshToken = classloader.getResourceAsStream("refreshToken.json");
+            options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(refreshToken))
+                    .setDatabaseUrl("https://workouttest2.firebaseio.com/")
+                    .build();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        FirebaseApp.initializeApp(options);
+        FirebaseToken decodedToken = null;
+        try {
+            decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
+        }
+        String uid = decodedToken.getUid();
+        /*
         System.out.println(new DateTime(System.currentTimeMillis()));
         final JacksonFactory jacksonFactory = new JacksonFactory();
 
@@ -121,6 +156,7 @@ token.setTokenid(exerciseDecodedAsJsonString);
         } else {
             System.out.println("Invalid ID token.");
         }
+         */
     }
 /*
     @CrossOrigin

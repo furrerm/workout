@@ -2,7 +2,7 @@ package ch.lu.mygym.savesetservice;
 
 import ch.lu.mygym.dtos.entities.RoutineEntity;
 import ch.lu.mygym.dtos.entities.SetsEntity;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.data.repository.CrudRepository;
 
 import java.sql.Timestamp;

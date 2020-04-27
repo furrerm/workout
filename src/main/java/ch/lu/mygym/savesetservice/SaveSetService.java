@@ -2,11 +2,9 @@ package ch.lu.mygym.savesetservice;
 
 import ch.lu.mygym.dtos.entities.SetsEntity;
 import ch.lu.mygym.dtos.plain.SupersetDTO;
-import ch.lu.mygym.exerciseservice.ExerciseRepository;
+
 import com.google.gson.Gson;
-import org.apache.tomcat.util.json.JSONParser;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -27,10 +25,10 @@ public class SaveSetService {
     private SetRepository setRepository;
 
     @CrossOrigin
-    @PostMapping(value="/save",
+    @PostMapping(value = "/save",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
-            )
+    )
     @ResponseBody
     public String getPropertyJSON(@RequestBody String exercise) {
         String exerciseDecoded;
@@ -39,7 +37,7 @@ public class SaveSetService {
         } catch (UnsupportedEncodingException ex) {
             throw new RuntimeException(ex.getCause());
         }
-        String exerciseDecodedAsJsonString = exerciseDecoded.substring(exerciseDecoded.indexOf("{"), exerciseDecoded.lastIndexOf("}")+1);
+        String exerciseDecodedAsJsonString = exerciseDecoded.substring(exerciseDecoded.indexOf("{"), exerciseDecoded.lastIndexOf("}") + 1);
         Gson jsonHandler = new Gson();
 
         SupersetDTO supersetDTO = jsonHandler.fromJson(exerciseDecodedAsJsonString, SupersetDTO.class);

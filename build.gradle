@@ -1,0 +1,6 @@
+apply plugin: 'idea'
+//and standard one
+apply plugin: 'java'
+dependencies {
+    implementation 'com.google.firebase:firebase-admin:6.12.2'
+}
