@@ -5,6 +5,7 @@ import ch.lu.mygym.dtos.plain.ExerciseDTO;
 import ch.lu.mygym.dtos.plain.SetDTO;
 import ch.lu.mygym.dtos.plain.SupersetDTO;
 import ch.lu.mygym.exerciseservice.DTOConverter;
+import ch.lu.mygym.exerciseservice.FirebaseSingelton;
 import ch.lu.mygym.savesetservice.SetConverter;
 import com.google.api.client.extensions.appengine.http.UrlFetchTransport;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -101,7 +102,9 @@ token.setTokenid(exerciseDecodedAsJsonString);
             e.printStackTrace();
         }
 
-        FirebaseApp.initializeApp(options);
+        FirebaseSingelton.instanciateFirebase(options);
+        // FirebaseApp.initializeApp(options);
+
         FirebaseToken decodedToken = null;
         try {
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);

@@ -33,10 +33,10 @@ public class ExerciseService {
 
         int id = exerciseDTO.getId();
 
-        // List<SetsEntity> setEntities = exerciseRepository.findByExerciseId(id);
-        //List<SetsEntity> setEntities = exerciseRepository.entitiesWithMaxTimeStamp(id);
-       // List<SetDTO> setDTOs = DTOConverter.coonvertSetEntitiesToDTOs(setEntities);
+        //List<SetsEntity> setEntities = exerciseRepository.findByExerciseId(id);
+        List<SetsEntity> setEntities = exerciseRepository.entitiesWithMaxTimeStamp(id);
+        List<SetDTO> setDTOs = DTOConverter.coonvertSetEntitiesToDTOs(setEntities);
 
-        return null;
+        return setDTOs;
     }
 }
