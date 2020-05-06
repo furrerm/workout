@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 @Controller
 @RestController
 @RequestMapping("/hello")
@@ -28,10 +32,27 @@ public class HelloController {
         // return userRepository.findAll();
     }
 
-    @GetMapping(path="/all1")
+    @GetMapping(path="/path")
     public String getAllUsers1() {
-        // This returns a JSON or XML with the users
-        return "hello";
+        String output = "empty output";
+
+        String filePath = System.getProperty("user.dir")+"/refreshToken.json";
+
+        // String filePath = String filePath = System.getProperty("user.dir")+"/../../../etc/pki/tls/certs/testFile.txt";"./testFile.txt";
+
+        try {
+            File myObj = new File(filePath);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                output += myReader.nextLine();
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            output = e.getMessage();
+        }
+
+        return output + "from : "+System.getProperty("user.dir");
         // return userRepository.findAll();
     }
 

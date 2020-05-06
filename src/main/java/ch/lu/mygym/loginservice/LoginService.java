@@ -1,18 +1,7 @@
 package ch.lu.mygym.loginservice;
 
-import ch.lu.mygym.dtos.entities.SetsEntity;
-import ch.lu.mygym.dtos.plain.ExerciseDTO;
-import ch.lu.mygym.dtos.plain.SetDTO;
-import ch.lu.mygym.dtos.plain.SupersetDTO;
-import ch.lu.mygym.exerciseservice.DTOConverter;
 import ch.lu.mygym.exerciseservice.FirebaseSingelton;
-import ch.lu.mygym.savesetservice.SetConverter;
-import com.google.api.client.extensions.appengine.http.UrlFetchTransport;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -28,26 +17,16 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
-import com.google.api.client.*;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.googleapis.auth.*;
-
 
 @Controller
 @RestController
 @RequestMapping("/login-service")
 public class LoginService {
 
-    @CrossOrigin
-    @PostMapping(value="/validate",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    // @CrossOrigin(origins = "http://workoutfrontend-env.eba-tdwzai3v.eu-west-2.elasticbeanstalk.com")
+    @CrossOrigin(origins = {"http://workoutfrontend-env.eba-tdwzai3v.eu-west-2.elasticbeanstalk.com", "http://localhost:4200"})
+    @PostMapping(value = "/validate",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
@@ -60,19 +39,21 @@ public class LoginService {
         } catch (UnsupportedEncodingException ex) {
             throw new RuntimeException(ex.getCause());
         }
-        String exerciseDecodedAsJsonString = tokenDecoded.substring(tokenDecoded.indexOf(":")+2, tokenDecoded.lastIndexOf("}")-1);
-        System.out.println(exerciseDecodedAsJsonString);
 
+        String exerciseDecodedAsJsonString = tokenDecoded.substring(tokenDecoded.indexOf(":") + 2, tokenDecoded.lastIndexOf("}") - 1);
+        System.out.println(exerciseDecodedAsJsonString);
 
 
         Gson jsonHandler = new Gson();
 
-Token token = new Token();
-token.setTokenid(exerciseDecodedAsJsonString);
+        Token token = new Token();
+        token.setTokenid(exerciseDecodedAsJsonString);
 
         verifier(token.getTokenid());
+
         return null;
     }
+
     class Token {
         private String tokenid;
 
@@ -84,14 +65,16 @@ token.setTokenid(exerciseDecodedAsJsonString);
             this.tokenid = tokenid;
         }
     }
-    private void verifier(String token){
+
+    private void verifier(String token) {
+
         FirebaseOptions options = null;
 
-
         try {
-           // FileInputStream refreshToken = new FileInputStream("refreshToken.json");
-            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream refreshToken = classloader.getResourceAsStream("refreshToken.json");
+            InputStream refreshToken = new FileInputStream(System.getProperty("user.dir") + "/refreshToken.json");
+
+            // ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            // InputStream refreshToken = classloader.getResourceAsStream(System.getProperty("user.dir") + "/refreshToken.json");
             options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(refreshToken))
                     .setDatabaseUrl("https://workouttest2.firebaseio.com/")

@@ -32,6 +32,7 @@ public class SaveSetService {
     @ResponseBody
     public String getPropertyJSON(@RequestBody String exercise) {
         String exerciseDecoded;
+        /*
         try {
             exerciseDecoded = URLDecoder.decode(exercise, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException ex) {
@@ -45,7 +46,7 @@ public class SaveSetService {
         List<SetsEntity> sets = SetConverter.convertSetDTOsToSetEntity(supersetDTO);
 
         setRepository.saveAll(sets);
-
+*/
         return null;
     }
 
