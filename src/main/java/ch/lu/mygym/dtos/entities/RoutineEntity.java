@@ -9,8 +9,13 @@ import java.util.Objects;
 public class RoutineEntity {
     private String name;
 
+
     @OneToMany(mappedBy = "routineEntity", cascade = CascadeType.ALL)
     private List<ExerciseEntity> exercises;
+
+    @ManyToOne
+    @JoinColumn(name = "workoutid")
+    private WorkoutEntity workoutEntity;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,19 +1,18 @@
 package ch.lu.mygym.savesetservice;
 
-import ch.lu.mygym.dtos.entities.RoutineEntity;
+import ch.lu.mygym.dtos.entities.ExerciseEntity;
 import ch.lu.mygym.dtos.entities.SetsEntity;
-
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface SetRepository extends CrudRepository<SetsEntity, Integer>
+public interface ExerciseRepositoryForSaveSetService extends CrudRepository<ExerciseEntity, Integer>
  {
 
-     List<SetsEntity> findAll();
+     List<ExerciseEntity> findAll();
 
 
-     // RoutineEntity findById(int id);
+     ExerciseEntity findById(int id);
 
 /*
      @Query(value = "SELECT max(time) FROM SetsEntity")

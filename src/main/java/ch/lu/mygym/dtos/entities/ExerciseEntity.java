@@ -1,6 +1,7 @@
 package ch.lu.mygym.dtos.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,9 @@ public class ExerciseEntity {
     @ManyToOne
     @JoinColumn(name = "routine_id")
     private RoutineEntity routineEntity;
+
+    @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
+    private List<SetsEntity> setsEntities;
 
     @Column(name = "id")
     public int getId() {

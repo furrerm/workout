@@ -3,13 +3,13 @@ package ch.lu.mygym.dtos.plain;
 import java.util.List;
 
 public class SupersetDTO {
+    private int id;
     private String name;
     private String date;
     private List<SetDTO> sets;
 
-    public SupersetDTO(String name, List<SetDTO> sets) {
-        this.name = name;
-        this.sets = sets;
+    public SupersetDTO() {
+
     }
 
     public String getName() {
@@ -34,5 +34,13 @@ public class SupersetDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

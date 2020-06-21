@@ -7,10 +7,7 @@ public class SetDTO {
     private BigInteger weight;
     private BigInteger repetitions;
 
-    public SetDTO(int id, BigInteger weight, BigInteger repetitions) {
-        this.id = id;
-        this.weight = weight;
-        this.repetitions = repetitions;
+    public SetDTO() {
     }
 
     public int getId() {

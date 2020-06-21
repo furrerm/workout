@@ -10,13 +10,16 @@ import java.util.Objects;
 public class SetsEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private BigInteger weight;
     private BigInteger repetitions;
-    private int exerciseId;
+
     private LocalDateTime time;
 
+    @ManyToOne
+    @JoinColumn(name = "exercise_id")
+    private ExerciseEntity exerciseEntity;
 
     @Column(name = "id")
     public int getId() {
@@ -43,17 +46,17 @@ public class SetsEntity {
         this.repetitions = repetitions;
     }
 
-
-    @Basic
-    @Column(name = "exercise_id")
-    public int getExerciseId() {
-        return exerciseId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
+    public ExerciseEntity getExerciseEntity() {
+        return exerciseEntity;
     }
 
+    public void setExerciseEntity(ExerciseEntity exerciseEntity) {
+        this.exerciseEntity = exerciseEntity;
+    }
 
     @Basic
     @Column(name = "time")

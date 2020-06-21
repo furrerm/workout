@@ -1,5 +1,6 @@
 package ch.lu.mygym.savesetservice;
 
+import ch.lu.mygym.dtos.entities.ExerciseEntity;
 import ch.lu.mygym.dtos.entities.SetsEntity;
 import ch.lu.mygym.dtos.plain.SupersetDTO;
 
@@ -9,14 +10,15 @@ import java.util.stream.Collectors;
 
 public class SetConverter {
 
-    public static List<SetsEntity> convertSetDTOsToSetEntity(SupersetDTO supersetDTO) {
+    public static List<SetsEntity> convertSetDTOsToSetEntity(SupersetDTO supersetDTO, ExerciseEntity exerciseEntity) {
+
         LocalDateTime time = LocalDateTime.now();
         return supersetDTO.getSets().stream().map(a -> {
             SetsEntity setEntity = new SetsEntity();
-            setEntity.setExerciseId(a.getId());
             setEntity.setRepetitions(a.getRepetitions());
             setEntity.setWeight(a.getWeight());
             setEntity.setTime(time);
+            setEntity.setExerciseEntity(exerciseEntity);
             return setEntity;
         }).collect(Collectors.toList());
     }

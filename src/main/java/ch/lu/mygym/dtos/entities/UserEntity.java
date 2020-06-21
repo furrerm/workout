@@ -1,20 +1,50 @@
 package ch.lu.mygym.dtos.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user", schema = "public", catalog = "postgres")
 public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "userid")
     private int userid;
+
+    @Basic
+    @Column(name = "remoteid")
     private String remoteid;
+
+    @Basic
+    @Column(name = "firstname")
     private String firstname;
+
+    @Basic
+    @Column(name = "lastname")
     private String lastname;
+
+    @Basic
+    @Column(name = "email")
     private String email;
+
+    @Basic
+    @Column(name = "photourl")
     private String photourl;
 
-    @Id
-    @Column(name = "userid")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<WorkoutEntity> workoutEntities;
+
+
+    public List<WorkoutEntity> getWorkoutEntities() {
+        return workoutEntities;
+    }
+
+    public void setWorkoutEntities(List<WorkoutEntity> workoutEntities) {
+        this.workoutEntities = workoutEntities;
+    }
+
+
     public int getUserid() {
         return userid;
     }
@@ -23,8 +53,7 @@ public class UserEntity {
         this.userid = userid;
     }
 
-    @Basic
-    @Column(name = "remoteid")
+
     public String getRemoteid() {
         return remoteid;
     }
@@ -33,8 +62,7 @@ public class UserEntity {
         this.remoteid = remoteid;
     }
 
-    @Basic
-    @Column(name = "firstname")
+
     public String getFirstname() {
         return firstname;
     }
@@ -43,8 +71,7 @@ public class UserEntity {
         this.firstname = firstname;
     }
 
-    @Basic
-    @Column(name = "lastname")
+
     public String getLastname() {
         return lastname;
     }
@@ -53,8 +80,7 @@ public class UserEntity {
         this.lastname = lastname;
     }
 
-    @Basic
-    @Column(name = "email")
+
     public String getEmail() {
         return email;
     }
@@ -63,8 +89,7 @@ public class UserEntity {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "photourl")
+
     public String getPhotourl() {
         return photourl;
     }

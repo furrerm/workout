@@ -1,13 +1,14 @@
 package ch.lu.mygym.dtos.plain;
 
-public class ExerciseDTO {
+import ch.lu.mygym.dtos.entities.UserEntity;
+
+
+import java.util.List;
+
+public class WorkoutDTO {
     private int id;
     private String name;
-
-    public ExerciseDTO(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private int userId;
 
     public int getId() {
         return id;
@@ -25,4 +26,11 @@ public class ExerciseDTO {
         this.name = name;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
