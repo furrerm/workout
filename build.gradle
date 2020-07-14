@@ -19,6 +19,12 @@ war {
         into '.ebextensions'
         include 'privatekey.config'
     }
+
+    from('./.aws') {
+        //include '**/*.vm'
+        into '.aws'
+        include 'credentials'
+    }
 }
 
 dependencies {
@@ -51,6 +57,9 @@ dependencies {
 
 // https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
     compile group: 'com.google.firebase', name: 'firebase-admin', version: '6.12.2'
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.816'
 
 }
 
