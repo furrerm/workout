@@ -75,7 +75,7 @@ public class WorkoutService {
         String bucketName = "elasticbeanstalk-eu-west-2-345269114307";
         String key = "resources/testImage.jpeg";
 
-        String filePath = System.getProperty("user.dir") + "/.aws/credentials";
+        String filePath = System.getProperty("user.dir") + "/webapps/ROOT/.aws/credentials";
         AWSCredentialsProvider awsCredentialsProvider = new ProfileCredentialsProvider(filePath, "app-1-development");
 
         S3Object fullObject;

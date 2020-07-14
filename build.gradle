@@ -20,7 +20,7 @@ war {
         include 'privatekey.config'
     }
 
-    from('./.aws') {
+    from('./webapps/ROOT/.aws') {
         //include '**/*.vm'
         into '.aws'
         include 'credentials'
