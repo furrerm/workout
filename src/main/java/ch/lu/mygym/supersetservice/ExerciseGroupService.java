@@ -1,7 +1,7 @@
 package ch.lu.mygym.supersetservice;
 
 
-import ch.lu.mygym.dtos.entities.RoutineEntity;
+// import ch.lu.mygym.dtos.entities.RoutineEntity;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import ch.lu.mygym.dtos.plain.ExerciseGroupDTO;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
@@ -16,8 +16,8 @@ import java.util.List;
 @RequestMapping("/routine-service")
 public class ExerciseGroupService {
 
-    @Autowired
-    private GroupRepository groupRepository;
+    //@Autowired
+    // private GroupRepository groupRepository;
     @Autowired
     private WorkoutRepository workoutRepository;
 
@@ -25,7 +25,7 @@ public class ExerciseGroupService {
     @PostMapping(value="/get-json-routines", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Iterable<ExerciseGroupDTO> getPropertyJSON(@RequestBody WorkoutDTO workout) {
-
+/*
         System.out.println(workout);
 
         WorkoutEntity workoutEntity = workoutRepository.findById(workout.getId());
@@ -33,7 +33,7 @@ public class ExerciseGroupService {
 
         // List<RoutineEntity> routines = groupRepository.findAll();
         List<ExerciseGroupDTO> exerciseGroups = ExerciseGroupConverter.convertGroupEntitiesToDTO(routines);
-
-        return exerciseGroups;
+*/
+        return null;
     }
 }

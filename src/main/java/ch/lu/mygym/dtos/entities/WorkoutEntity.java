@@ -12,30 +12,38 @@ public class WorkoutEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @Basic
+    @Column(name = "name", nullable = true, length = -1)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "workoutEntity", cascade = CascadeType.ALL)
+    private List<SavedWorkoutsEntity> savedWorkoutsEntity;
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "workoutEntity", cascade = CascadeType.ALL)
+    private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities;
+
+    @Basic
+    @Column(name = "ImageUrl", nullable = true, length = -1)
+    private String imageUrl;
+
+    public List<PhaseDayExerciseRelationEntity> getPhaseDayExerciseRelationEntities() {
+        return phaseDayExerciseRelationEntities;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setPhaseDayExerciseRelationEntities(List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities) {
+        this.phaseDayExerciseRelationEntities = phaseDayExerciseRelationEntities;
     }
 
-    @OneToMany(mappedBy = "workoutEntity", cascade = CascadeType.ALL)
-    private List<RoutineEntity> routines;
-
-    public List<RoutineEntity> getRoutines() {
-        return routines;
+    public List<SavedWorkoutsEntity> getSavedWorkoutsEntity() {
+        return savedWorkoutsEntity;
     }
 
-    public void setRoutines(List<RoutineEntity> routines) {
-        this.routines = routines;
+    public void setSavedWorkoutsEntity(List<SavedWorkoutsEntity> savedWorkoutsEntity) {
+        this.savedWorkoutsEntity = savedWorkoutsEntity;
     }
+
+
 
     public int getId() {
         return id;
@@ -45,8 +53,7 @@ public class WorkoutEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
+
     public String getName() {
         return name;
     }
@@ -54,7 +61,6 @@ public class WorkoutEntity {
     public void setName(String name) {
         this.name = name;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -68,5 +74,14 @@ public class WorkoutEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

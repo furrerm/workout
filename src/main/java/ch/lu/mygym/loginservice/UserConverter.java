@@ -1,6 +1,5 @@
 package ch.lu.mygym.loginservice;
 
-import ch.lu.mygym.dtos.entities.RoutineEntity;
 import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.plain.ExerciseDTO;
 import ch.lu.mygym.dtos.plain.ExerciseGroupDTO;

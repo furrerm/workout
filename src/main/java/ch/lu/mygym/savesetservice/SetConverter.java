@@ -18,7 +18,6 @@ public class SetConverter {
             setEntity.setRepetitions(a.getRepetitions());
             setEntity.setWeight(a.getWeight());
             setEntity.setTime(time);
-            setEntity.setExerciseEntity(exerciseEntity);
             return setEntity;
         }).collect(Collectors.toList());
     }

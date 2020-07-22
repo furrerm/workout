@@ -5,19 +5,27 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "exercise", schema = "public", catalog = "postgres")
-public class ExerciseEntity {
+@Table(name = "Phase", schema = "public", catalog = "postgres")
+public class PhaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id", nullable = false)
     private int id;
 
     @Basic
     @Column(name = "name", nullable = true, length = 255)
     private String name;
 
-    @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
-    private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities;
+    @OneToMany(mappedBy = "phaseEntity", cascade = CascadeType.ALL)
+    private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntites;
 
+    public List<PhaseDayExerciseRelationEntity> getPhaseDayExerciseRelationEntites() {
+        return phaseDayExerciseRelationEntites;
+    }
+
+    public void setPhaseDayExerciseRelationEntites(List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntites) {
+        this.phaseDayExerciseRelationEntites = phaseDayExerciseRelationEntites;
+    }
 
     public int getId() {
         return id;
@@ -40,7 +48,7 @@ public class ExerciseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExerciseEntity that = (ExerciseEntity) o;
+        PhaseEntity that = (PhaseEntity) o;
         return id == that.id &&
                 Objects.equals(name, that.name);
     }
@@ -49,6 +57,4 @@ public class ExerciseEntity {
     public int hashCode() {
         return Objects.hash(id, name);
     }
-
-
 }

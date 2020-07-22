@@ -7,42 +7,46 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "public", catalog = "postgres")
 public class UserEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "userid")
+    @Column(name = "userid", nullable = false)
     private int userid;
 
     @Basic
-    @Column(name = "remoteid")
+    @Column(name = "remoteid", nullable = true, length = -1)
     private String remoteid;
 
     @Basic
-    @Column(name = "firstname")
+    @Column(name = "firstname", nullable = true, length = -1)
     private String firstname;
 
     @Basic
-    @Column(name = "lastname")
+    @Column(name = "lastname", nullable = true, length = -1)
     private String lastname;
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", nullable = true, length = -1)
     private String email;
 
     @Basic
-    @Column(name = "photourl")
+    @Column(name = "photourl", nullable = true, length = -1)
     private String photourl;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userEntity", cascade = CascadeType.ALL)
-    private List<WorkoutEntity> workoutEntities;
+    private List<SavedWorkoutsEntity> savedWorkoutEntities;
+
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<SetsEntity> setsEntities;
 
 
-    public List<WorkoutEntity> getWorkoutEntities() {
-        return workoutEntities;
+    public List<SavedWorkoutsEntity> getSavedWorkoutEntities() {
+        return savedWorkoutEntities;
     }
 
-    public void setWorkoutEntities(List<WorkoutEntity> workoutEntities) {
-        this.workoutEntities = workoutEntities;
+    public void setSavedWorkoutEntities(List<SavedWorkoutsEntity> savedWorkoutEntities) {
+        this.savedWorkoutEntities = savedWorkoutEntities;
     }
+
 
 
     public int getUserid() {
@@ -54,6 +58,7 @@ public class UserEntity {
     }
 
 
+
     public String getRemoteid() {
         return remoteid;
     }
@@ -61,6 +66,7 @@ public class UserEntity {
     public void setRemoteid(String remoteid) {
         this.remoteid = remoteid;
     }
+
 
 
     public String getFirstname() {
@@ -72,6 +78,7 @@ public class UserEntity {
     }
 
 
+
     public String getLastname() {
         return lastname;
     }
@@ -81,12 +88,24 @@ public class UserEntity {
     }
 
 
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+
+
+    public List<SetsEntity> getSetsEntities() {
+        return setsEntities;
+    }
+
+    public void setSetsEntities(List<SetsEntity> setsEntities) {
+        this.setsEntities = setsEntities;
     }
 
 

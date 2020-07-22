@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "exercise", schema = "public", catalog = "postgres")
-public class ExerciseEntity {
+@Table(name = "Day", schema = "public", catalog = "postgres")
+public class DayEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,7 +16,7 @@ public class ExerciseEntity {
     @Column(name = "name", nullable = true, length = 255)
     private String name;
 
-    @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dayEntity", cascade = CascadeType.ALL)
     private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities;
 
 
@@ -40,15 +41,13 @@ public class ExerciseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExerciseEntity that = (ExerciseEntity) o;
-        return id == that.id &&
-                Objects.equals(name, that.name);
+        DayEntity dayEntity = (DayEntity) o;
+        return id == dayEntity.id &&
+                Objects.equals(name, dayEntity.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
     }
-
-
 }

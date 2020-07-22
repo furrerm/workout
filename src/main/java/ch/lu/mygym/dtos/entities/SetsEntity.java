@@ -1,7 +1,9 @@
 package ch.lu.mygym.dtos.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,24 +12,49 @@ import java.util.Objects;
 public class SetsEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private int id;
+
+    @Basic
+    @Column(name = "weight", nullable = true, precision = 2)
     private BigInteger weight;
+
+    @Basic
+    @Column(name = "repetitions", nullable = true, precision = 2)
     private BigInteger repetitions;
 
+    @Basic
+    @Column(name = "time", nullable = true)
     private LocalDateTime time;
 
-    @ManyToOne
-    @JoinColumn(name = "exercise_id")
-    private ExerciseEntity exerciseEntity;
+    @Basic
+    @Column(name = "BreakTime", nullable = true)
+    private Integer breakTime;
 
-    @Column(name = "id")
+
+    @ManyToOne
+    @JoinColumn(name = "UserId", updatable = false, insertable = false)
+    private UserEntity userEntity;
+
+    @Basic
+    @Column(name = "Order", nullable = true)
+    private Integer order;
+
+
+    @ManyToOne
+    @JoinColumn(name = "ExerciseId")
+    private PhaseDayExerciseRelationEntity phaseDayExerciseRelationEntity;
+
+
     public int getId() {
         return id;
     }
 
-    @Basic
-    @Column(name = "weight")
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
     public BigInteger getWeight() {
         return weight;
     }
@@ -36,8 +63,7 @@ public class SetsEntity {
         this.weight = weight;
     }
 
-    @Basic
-    @Column(name = "repetitions")
+
     public BigInteger getRepetitions() {
         return repetitions;
     }
@@ -46,20 +72,8 @@ public class SetsEntity {
         this.repetitions = repetitions;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public ExerciseEntity getExerciseEntity() {
-        return exerciseEntity;
-    }
 
-    public void setExerciseEntity(ExerciseEntity exerciseEntity) {
-        this.exerciseEntity = exerciseEntity;
-    }
-
-    @Basic
-    @Column(name = "time")
     public LocalDateTime getTime() {
         return this.time;
     }
@@ -67,7 +81,6 @@ public class SetsEntity {
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -83,4 +96,24 @@ public class SetsEntity {
     public int hashCode() {
         return Objects.hash(id, weight, repetitions);
     }
+
+
+    public Integer getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(Integer breakTime) {
+        this.breakTime = breakTime;
+    }
+
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package ch.lu.mygym.workoutservice;
 
-import ch.lu.mygym.dtos.entities.RoutineEntity;
 import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import org.springframework.data.repository.CrudRepository;
