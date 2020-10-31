@@ -9,7 +9,7 @@ import java.util.Objects;
 public class DayEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @Basic
@@ -19,6 +19,10 @@ public class DayEntity {
     @OneToMany(mappedBy = "dayEntity", cascade = CascadeType.ALL)
     private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities;
 
+
+    public List<PhaseDayExerciseRelationEntity> getPhaseDayExerciseRelationEntities() {
+        return phaseDayExerciseRelationEntities;
+    }
 
     public int getId() {
         return id;

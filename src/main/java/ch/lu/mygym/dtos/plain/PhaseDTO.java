@@ -1,17 +1,21 @@
 package ch.lu.mygym.dtos.plain;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.SortedSet;
 
-public class ExerciseDTO implements Comparable{
+public class PhaseDTO implements Comparable{
+
     private int id;
     private String name;
-    private Set<ExerciseSetContainerDTO> setsContainer;
+    private SortedSet<ExerciseDTO> exercises;
     private int order;
 
-    public ExerciseDTO(int id, String name, Set<ExerciseSetContainerDTO> setsContainer, int order) {
+    public PhaseDTO(int id, String name, SortedSet<ExerciseDTO> exercises, int order) {
         this.id = id;
         this.name = name;
-        this.setsContainer = setsContainer;
+        this.exercises = exercises;
         this.order = order;
     }
 
@@ -31,12 +35,8 @@ public class ExerciseDTO implements Comparable{
         this.name = name;
     }
 
-    public Set<ExerciseSetContainerDTO> getSetsContainer() {
-        return setsContainer;
-    }
-
-    public void setSetsContainer(Set<ExerciseSetContainerDTO> setsContainer) {
-        this.setsContainer = setsContainer;
+    public SortedSet<ExerciseDTO> getExercises() {
+        return exercises;
     }
 
     public int getOrder() {
@@ -47,15 +47,19 @@ public class ExerciseDTO implements Comparable{
         this.order = order;
     }
 
+    public void setExercises(SortedSet<ExerciseDTO> exercises) {
+        this.exercises = exercises;
+    }
+
     @Override
     public int compareTo(Object o) {
-        return this.getOrder() - ((ExerciseDTO)o).getOrder();
+        return this.order - ((PhaseDTO)o).getOrder();
     }
 
     public static class Builder {
         private int id;
         private String name;
-        private Set<ExerciseSetContainerDTO> sets;
+        private SortedSet<ExerciseDTO> exercises;
         private int order;
 
         public Builder withId(int id){
@@ -68,8 +72,8 @@ public class ExerciseDTO implements Comparable{
             return this;
         }
 
-        public Builder withSets(Set<ExerciseSetContainerDTO> sets){
-            this.sets = sets;
+        public Builder withExercises(SortedSet<ExerciseDTO> exercises){
+            this.exercises = exercises;
             return this;
         }
 
@@ -78,9 +82,9 @@ public class ExerciseDTO implements Comparable{
             return this;
         }
 
-        public ExerciseDTO build(){
-            ExerciseDTO exerciseDTO = new ExerciseDTO(this.id, this.name, this.sets, this.order);
-            return exerciseDTO;
+        public PhaseDTO build(){
+            PhaseDTO phaseDTO = new PhaseDTO(this.id, this.name, this.exercises, this.order);
+            return phaseDTO;
         }
     }
 }

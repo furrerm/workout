@@ -17,34 +17,35 @@ public class SetsEntity {
 
     @Basic
     @Column(name = "weight", nullable = true, precision = 2)
-    private BigInteger weight;
+    private float weight;
 
     @Basic
     @Column(name = "repetitions", nullable = true, precision = 2)
-    private BigInteger repetitions;
+    private int repetitions;
 
     @Basic
     @Column(name = "time", nullable = true)
     private LocalDateTime time;
 
     @Basic
-    @Column(name = "BreakTime", nullable = true)
+    @Column(name = "break_time", nullable = true)
     private Integer breakTime;
 
+    @Basic
+    @Column(name = "exercise_id", nullable = true)
+    private Integer exerciseId;
 
     @ManyToOne
-    @JoinColumn(name = "UserId", updatable = false, insertable = false)
+    @JoinColumn(name = "user_id", updatable = false, insertable = false)
     private UserEntity userEntity;
 
     @Basic
-    @Column(name = "Order", nullable = true)
+    @Column(name = "order", nullable = true)
     private Integer order;
 
-
     @ManyToOne
-    @JoinColumn(name = "ExerciseId")
+    @JoinColumn(name = "phase_day_ex_id", updatable = false, insertable = false)
     private PhaseDayExerciseRelationEntity phaseDayExerciseRelationEntity;
-
 
     public int getId() {
         return id;
@@ -55,20 +56,20 @@ public class SetsEntity {
     }
 
 
-    public BigInteger getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(BigInteger weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
 
-    public BigInteger getRepetitions() {
+    public int getRepetitions() {
         return repetitions;
     }
 
-    public void setRepetitions(BigInteger repetitions) {
+    public void setRepetitions(int repetitions) {
         this.repetitions = repetitions;
     }
 

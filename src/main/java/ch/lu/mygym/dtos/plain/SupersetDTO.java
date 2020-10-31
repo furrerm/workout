@@ -6,7 +6,7 @@ public class SupersetDTO {
     private int id;
     private String name;
     private String date;
-    private List<SetDTO> sets;
+    private List<ExerciseSetDTO> sets;
 
     public SupersetDTO() {
 
@@ -20,11 +20,11 @@ public class SupersetDTO {
         this.name = name;
     }
 
-    public List<SetDTO> getSets() {
+    public List<ExerciseSetDTO> getSets() {
         return sets;
     }
 
-    public void setSets(List<SetDTO> sets) {
+    public void setSets(List<ExerciseSetDTO> sets) {
         this.sets = sets;
     }
 

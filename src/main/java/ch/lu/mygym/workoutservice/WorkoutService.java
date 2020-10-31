@@ -1,36 +1,29 @@
 package ch.lu.mygym.workoutservice;
 
 
+import ch.lu.mygym.dtos.entities.SavedWorkoutsEntity;
 import ch.lu.mygym.dtos.entities.UserEntity;
-import ch.lu.mygym.dtos.plain.ExerciseGroupDTO;
+import ch.lu.mygym.dtos.entities.WorkoutEntity;
 
 import ch.lu.mygym.dtos.plain.UserDTO;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
 import ch.lu.mygym.loginservice.UserRepository;
 import com.amazonaws.ClientConfiguration;
-import com.amazonaws.ClientConfigurationFactory;
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
-import com.google.gson.Gson;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/workout-service")
@@ -53,7 +46,11 @@ public class WorkoutService {
 
 
         UserEntity userEntity = userRepository.findById(user.getId());
-        List<WorkoutDTO> workoutDTOs = WorkoutConverter.convertWorkoutEntitiesToDTO(userEntity.getSavedWorkoutEntities());
+
+        List<SavedWorkoutsEntity> savedWorkouts = userEntity.getSavedWorkoutEntities();
+        List<WorkoutEntity> workouts = savedWorkouts.stream().map(a -> a.getWorkoutEntity()).collect(Collectors.toList());
+        WorkoutModelConverter workoutConverter = new WorkoutModelConverter();
+        Set<WorkoutDTO> workoutDTOs = workoutConverter.convertWorkoutEntitiesToDTO(workouts);
 
         return workoutDTOs;
     }

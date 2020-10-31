@@ -1,13 +1,13 @@
 package ch.lu.mygym.workoutservice;
 
+import ch.lu.mygym.dtos.entities.SavedWorkoutsEntity;
 import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface WorkoutRepository extends CrudRepository<WorkoutEntity, Integer>
- {
+public interface WorkoutRepository extends CrudRepository<WorkoutEntity, Integer> {
 
      List<WorkoutEntity> findAll();
 
@@ -15,6 +15,6 @@ public interface WorkoutRepository extends CrudRepository<WorkoutEntity, Integer
 
      WorkoutEntity save(WorkoutEntity entity);
 
-
+     List<WorkoutEntity> findBySavedWorkoutsEntity_UserEntity(int userId);
 }
 

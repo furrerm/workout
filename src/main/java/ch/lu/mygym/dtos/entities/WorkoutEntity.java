@@ -24,8 +24,12 @@ public class WorkoutEntity {
     private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities;
 
     @Basic
-    @Column(name = "ImageUrl", nullable = true, length = -1)
+    @Column(name = "image_url", nullable = true, length = -1)
     private String imageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", updatable = false, insertable = false)
+    private UserEntity userEntity;
 
     public List<PhaseDayExerciseRelationEntity> getPhaseDayExerciseRelationEntities() {
         return phaseDayExerciseRelationEntities;
@@ -43,7 +47,13 @@ public class WorkoutEntity {
         this.savedWorkoutsEntity = savedWorkoutsEntity;
     }
 
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 
     public int getId() {
         return id;

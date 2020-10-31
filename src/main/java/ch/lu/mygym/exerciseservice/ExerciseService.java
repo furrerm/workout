@@ -1,10 +1,8 @@
 package ch.lu.mygym.exerciseservice;
 
-import ch.lu.mygym.CustomerRepository;
-import ch.lu.mygym.dtos.entities.ExerciseEntity;
-import ch.lu.mygym.dtos.entities.SetsEntity;
 import ch.lu.mygym.dtos.plain.ExerciseDTO;
-import ch.lu.mygym.dtos.plain.SetDTO;
+import ch.lu.mygym.dtos.plain.ExerciseSetContainerDTO;
+import ch.lu.mygym.dtos.plain.ExerciseSetDTO;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -25,18 +24,11 @@ public class ExerciseService {
     @CrossOrigin // (origins = "http://localhost:4200")
     @GetMapping(value="/get-sets", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Iterable<SetDTO> getPropertyJSON(@RequestParam(defaultValue="") String exercise) {
-
-        System.out.println(exercise);
-        Gson jsonHandler = new Gson();
-        ExerciseDTO exerciseDTO = jsonHandler.fromJson(exercise, ExerciseDTO.class);
-
-        int id = exerciseDTO.getId();
-
-        //List<SetsEntity> setEntities = exerciseRepository.findByExerciseId(id);
-        // List<SetsEntity> setEntities = exerciseRepository.entitiesWithMaxTimeStamp(id);
-        // List<SetDTO> setDTOs = DTOConverter.coonvertSetEntitiesToDTOs(setEntities);
-
-        return null;
+    public Iterable<ExerciseDTO> getPropertyJSON(@RequestParam(defaultValue="") List<Integer> exerciseIds, @RequestParam(defaultValue="") int dayId) {
+        // Add the user to parameter list and consider by reading from db
+        ExerciseSetConverter exerciseSetConverter = new ExerciseSetConverter();
+        System.out.println(exerciseIds);
+        System.out.println(dayId);
+        return exerciseIds.stream().map(a -> exerciseSetConverter.createPseudoExerciseDTO(a, exerciseRepository.getAllSetsOf(a, 1))).collect(Collectors.toList());
     }
 }

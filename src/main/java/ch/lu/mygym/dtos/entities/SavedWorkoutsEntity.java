@@ -12,7 +12,7 @@ public class SavedWorkoutsEntity {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "workout_id", insertable=false, updatable=false)
     private WorkoutEntity workoutEntity;
 
     @ManyToOne

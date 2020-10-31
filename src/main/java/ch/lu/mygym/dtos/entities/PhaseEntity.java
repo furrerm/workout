@@ -9,7 +9,7 @@ import java.util.Objects;
 public class PhaseEntity {
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @Basic

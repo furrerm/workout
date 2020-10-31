@@ -9,28 +9,52 @@ import java.util.Objects;
 public class PhaseDayExerciseRelationEntity {
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "id", nullable = false)
     private int id;
 
+    @Basic
+    @Column(name = "phase_order")
+    private Integer phaseOrder;
+
+    @Basic
+    @Column(name = "exercise_order")
+    private Integer exerciseOrder;
+
     @ManyToOne
-    @JoinColumn(name = "Id", updatable = false, insertable = false)
+    @JoinColumn(name = "phase_id", updatable = false, insertable = false)
     private PhaseEntity phaseEntity;
 
     @ManyToOne
-    @JoinColumn(name = "id", updatable = false, insertable = false)
+    @JoinColumn(name = "workout_id", updatable = false, insertable = false)
     private WorkoutEntity workoutEntity;
 
 
     @ManyToOne
-    @JoinColumn(name = "Id", updatable = false, insertable = false)
+    @JoinColumn(name = "day_id", updatable = false, insertable = false)
     private DayEntity dayEntity;
 
     @ManyToOne
-    @JoinColumn(name = "Id", updatable = false, insertable = false)
+    @JoinColumn(name = "exercise_id", updatable = false, insertable = false)
     private ExerciseEntity exerciseEntity;
 
     @OneToMany(mappedBy = "phaseDayExerciseRelationEntity", cascade = CascadeType.ALL)
     private List<SetsEntity> setsEntity;
+
+    public Integer getPhaseOrder() {
+        return phaseOrder;
+    }
+
+    public void setPhaseOrder(Integer phaseOrder) {
+        this.phaseOrder = phaseOrder;
+    }
+
+    public Integer getExerciseOrder() {
+        return exerciseOrder;
+    }
+
+    public void setExerciseOrder(Integer exerciseOrder) {
+        this.exerciseOrder = exerciseOrder;
+    }
 
     public WorkoutEntity getWorkoutEntity() {
         return workoutEntity;
@@ -46,6 +70,22 @@ public class PhaseDayExerciseRelationEntity {
 
     public void setPhaseEntity(PhaseEntity phaseEntity) {
         this.phaseEntity = phaseEntity;
+    }
+
+    public DayEntity getDayEntity() {
+        return dayEntity;
+    }
+
+    public void setDayEntity(DayEntity dayEntity) {
+        this.dayEntity = dayEntity;
+    }
+
+    public ExerciseEntity getExerciseEntity() {
+        return exerciseEntity;
+    }
+
+    public void setExerciseEntity(ExerciseEntity exerciseEntity) {
+        this.exerciseEntity = exerciseEntity;
     }
 
     public List<SetsEntity> getSetsEntity() {

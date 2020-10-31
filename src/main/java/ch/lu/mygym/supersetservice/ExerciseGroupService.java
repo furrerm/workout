@@ -3,7 +3,8 @@ package ch.lu.mygym.supersetservice;
 
 // import ch.lu.mygym.dtos.entities.RoutineEntity;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
-import ch.lu.mygym.dtos.plain.ExerciseGroupDTO;
+
+import ch.lu.mygym.dtos.plain.ExerciseDTO;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
 import ch.lu.mygym.workoutservice.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class ExerciseGroupService {
     @CrossOrigin // (origins = "http://localhost:4200")
     @PostMapping(value="/get-json-routines", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Iterable<ExerciseGroupDTO> getPropertyJSON(@RequestBody WorkoutDTO workout) {
+    public Iterable<ExerciseDTO> getPropertyJSON(@RequestBody WorkoutDTO workout) {
 /*
+Everithing is revritten !!!!!!!!!!!!!!!!!!!!!!!!!!!! please delete this class
         System.out.println(workout);
 
         WorkoutEntity workoutEntity = workoutRepository.findById(workout.getId());

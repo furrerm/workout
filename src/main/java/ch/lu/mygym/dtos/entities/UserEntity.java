@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "public", catalog = "postgres")
+@Table(name = "users", schema = "public", catalog = "postgres")
 public class UserEntity {
 
     @Id
@@ -37,6 +37,9 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private List<SetsEntity> setsEntities;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<WorkoutEntity> workoutEntities;
 
 
     public List<SavedWorkoutsEntity> getSavedWorkoutEntities() {
@@ -122,7 +125,7 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return userid == that.userid &&
+        return
                 Objects.equals(remoteid, that.remoteid) &&
                 Objects.equals(firstname, that.firstname) &&
                 Objects.equals(lastname, that.lastname) &&
@@ -132,6 +135,6 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userid, remoteid, firstname, lastname, email, photourl);
+        return Objects.hash( remoteid, firstname, lastname, email, photourl);
     }
 }
