@@ -12,36 +12,37 @@ import java.util.Objects;
 public class SetsEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
     @Basic
-    @Column(name = "weight", nullable = true, precision = 2)
+    @Column(name = "weight", precision = 2)
     private float weight;
 
     @Basic
-    @Column(name = "repetitions", nullable = true, precision = 2)
+    @Column(name = "repetitions", precision = 2)
     private int repetitions;
 
     @Basic
-    @Column(name = "time", nullable = true)
+    @Column(name = "time")
     private LocalDateTime time;
 
     @Basic
-    @Column(name = "break_time", nullable = true)
+    @Column(name = "break_time")
     private Integer breakTime;
 
     @Basic
-    @Column(name = "exercise_id", nullable = true)
+    @Column(name = "exercise_id")
     private Integer exerciseId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", updatable = false, insertable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
     @Basic
-    @Column(name = "order", nullable = true)
-    private Integer order;
+    @Column(name = "order_of_set_entry")
+    private Integer orderOfSetEntry;
 
     @ManyToOne
     @JoinColumn(name = "phase_day_ex_id", updatable = false, insertable = false)
@@ -83,6 +84,30 @@ public class SetsEntity {
         this.time = time;
     }
 
+    public Integer getExerciseId() {
+        return exerciseId;
+    }
+
+    public void setExerciseId(Integer exerciseId) {
+        this.exerciseId = exerciseId;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    public PhaseDayExerciseRelationEntity getPhaseDayExerciseRelationEntity() {
+        return phaseDayExerciseRelationEntity;
+    }
+
+    public void setPhaseDayExerciseRelationEntity(PhaseDayExerciseRelationEntity phaseDayExerciseRelationEntity) {
+        this.phaseDayExerciseRelationEntity = phaseDayExerciseRelationEntity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,11 +134,11 @@ public class SetsEntity {
 
 
     public Integer getOrder() {
-        return order;
+        return orderOfSetEntry;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setOrder(Integer orderOfSetEntry) {
+        this.orderOfSetEntry = orderOfSetEntry;
     }
 
 

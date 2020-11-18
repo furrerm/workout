@@ -10,9 +10,9 @@ public class DayDTO implements Comparable{
 
     private int id;
     private String name;
-    private SortedSet<PhaseDTO> phases;
+    private List<PhaseDTO> phases;
 
-    public DayDTO(int id, String name, SortedSet<PhaseDTO> days) {
+    public DayDTO(int id, String name, List<PhaseDTO> days) {
         this.id = id;
         this.name = name;
         this.phases = days;
@@ -34,11 +34,11 @@ public class DayDTO implements Comparable{
         this.name = name;
     }
 
-    public void setPhases(SortedSet<PhaseDTO> phases) {
+    public void setPhases(List<PhaseDTO> phases) {
         this.phases = phases;
     }
 
-    public SortedSet<PhaseDTO> getPhases() {
+    public List<PhaseDTO> getPhases() {
         return phases;
     }
 
@@ -50,7 +50,7 @@ public class DayDTO implements Comparable{
     public static class Builder {
         private int id;
         private String name;
-        private SortedSet<PhaseDTO> phases;
+        private List<PhaseDTO> phases;
 
         public Builder withId(int id){
             this.id = id;
@@ -62,7 +62,7 @@ public class DayDTO implements Comparable{
             return this;
         }
 
-        public Builder withPhases(SortedSet<PhaseDTO> phases){
+        public Builder withPhases(List<PhaseDTO> phases){
             this.phases = phases;
             return this;
         }

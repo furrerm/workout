@@ -59,8 +59,9 @@ public class WorkoutModelConverter {
                         stream().
                         map(d -> convertPhaseEntityToDTO(phases.get(d), d, workout_day_Relations)).
                         sorted().
-                        collect(Collectors.toCollection(() -> new TreeSet<>()))).
+                        collect(Collectors.toList())).
                 build();
+
         return dayDTO;
     }
 
