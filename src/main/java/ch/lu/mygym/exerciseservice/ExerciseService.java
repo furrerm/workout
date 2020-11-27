@@ -24,11 +24,10 @@ public class ExerciseService {
     @CrossOrigin // (origins = "http://localhost:4200")
     @GetMapping(value="/get-sets", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Iterable<ExerciseDTO> getPropertyJSON(@RequestParam(defaultValue="") List<Integer> exerciseIds, @RequestParam(defaultValue="") int dayId) {
+    public Iterable<ExerciseDTO> getPropertyJSON(@RequestParam(defaultValue="") List<Integer> exerciseIds) {
         // Add the user to parameter list and consider by reading from db
         ExerciseSetConverter exerciseSetConverter = new ExerciseSetConverter();
         System.out.println(exerciseIds);
-        System.out.println(dayId);
         return exerciseIds.stream().map(a -> exerciseSetConverter.createPseudoExerciseDTO(a, exerciseRepository.getAllSetsOf(a, 1))).collect(Collectors.toList());
     }
 }
