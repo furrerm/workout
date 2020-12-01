@@ -38,15 +38,9 @@ public class FilesController {
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 
         InputStream inputStream = null;
-        try {
-            System.out.println(file.getBytes().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(file.toString());
 
         try {
-            inputStream =  new BufferedInputStream(file.getInputStream());
+            inputStream = new BufferedInputStream(file.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,36 +49,28 @@ public class FilesController {
                 body(new ResponseMessage("message from backend saveSetServeice"));
     }
 
-    private void saveImage(InputStream file, String fileName){
+    private void saveImage(InputStream file, String fileName) {
         String bucketName = "elasticbeanstalk-eu-west-2-345269114307";
-        // String bucketName = "elasticbeanstalk-eu-west-2-345269114307.s3.eu-west-2.amazonaws.com";
-        String key = "resources/testImage.jpeg";
 
         String filePath = System.getProperty("user.dir") + "/.aws/credentials";
         AWSCredentialsProvider awsCredentialsProvider = new ProfileCredentialsProvider(filePath, "app-1-development");
 
         try {
-            ClientConfiguration clientConfiguration = new ClientConfigurationFactory()
-                    .getConfig()
-                    .withConnectionTimeout(50000)
-                    .withMaxConnections(500)
-                    .withSocketTimeout(50000)
-                    .withMaxErrorRetry(10);
 
-            ClientConfiguration clientConfiguration1 = new ClientConfiguration();
-            clientConfiguration1.setConnectionTimeout(50000);
-            clientConfiguration1.setMaxConnections(500);
-            clientConfiguration1.setSocketTimeout(50000);
-            clientConfiguration1.setMaxErrorRetry(10);
+            ClientConfiguration clientConfiguration = new ClientConfiguration();
+            clientConfiguration.setConnectionTimeout(50000);
+            clientConfiguration.setMaxConnections(500);
+            clientConfiguration.setSocketTimeout(50000);
+            clientConfiguration.setMaxErrorRetry(10);
 
-            AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withCredentials(awsCredentialsProvider).withClientConfiguration(clientConfiguration1).build();
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard().
+                    withCredentials(awsCredentialsProvider).
+                    withClientConfiguration(clientConfiguration).
+                    build();
 
+            s3Client.putObject(bucketName, "resources/" + fileName, file, new ObjectMetadata());
 
-            // Get an object and print its contents.
-            System.out.println("save img");
-            s3Client.putObject(bucketName, "resources/"+fileName, file, new ObjectMetadata());
-
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

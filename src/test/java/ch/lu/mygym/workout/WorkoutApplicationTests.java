@@ -1,10 +1,6 @@
 package ch.lu.mygym.workout;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-
-@SpringBootTest
+// @SpringBootTest
 class WorkoutApplicationTests {
 /*
 	@Test

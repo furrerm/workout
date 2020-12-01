@@ -1,7 +1,6 @@
 package ch.lu.mygym.savesetservice;
 
 
-import ch.lu.mygym.dtos.entities.ExerciseEntity;
 import ch.lu.mygym.dtos.entities.SetsEntity;
 import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.plain.*;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
 
@@ -29,8 +27,6 @@ public class SaveSetService {
     @Autowired
     private SetRepository setRepository;
     @Autowired
-    private ExerciseRepositoryForSaveSetService exerciseRepository;
-    @Autowired
     private UserRepository userRepository;
 
     @CrossOrigin
@@ -40,11 +36,10 @@ public class SaveSetService {
     )
     @ResponseBody
     public String saveExerciseSets(@RequestBody WorkoutSetDTO workoutSetDTO) {
-        System.out.println(workoutSetDTO);
 
         DayDTO dayDTO = workoutSetDTO.getDayDTO();
 
-        ExerciseEntity exerciseEntity = exerciseRepository.findById(dayDTO.getId());
+        // ExerciseEntity exerciseEntity = exerciseRepository.findById(dayDTO.getId());
         // extract the flattening part in separeted generic class for reuse
 
         List<ExerciseDTO> exercisesDTOs = dayDTO.getPhases().
@@ -62,18 +57,8 @@ public class SaveSetService {
 
         UserEntity userEntity = userRepository.findById(workoutSetDTO.getUserId());
         List<SetsEntity> setsEntities = this.convertExerciseSetContainerToSetsEntity(exerciseSetContainerForSetsDTO, userEntity);
-        /*
-        List<ExerciseSetContainerDTO> sortedSetContainers = exerciseSetContainerForSetsDTO.stream().sorted(Comparator.comparing(a -> a.getTimeOfExercise())).collect(Collectors.toList());
-        ExerciseSetContainerDTO latestSortedSetContainer = sortedSetContainers.get(sortedSetContainers.size()-1);
 
-        List<SetsEntity> setsEntities = this.convertExerciseSetContainerToSetsEntity(latestSortedSetContainer);
-
-*/
         this.setRepository.saveAll(setsEntities);
-
-
-        System.out.println(dayDTO);
-        // setRepository.saveAll(dayDTO);
 
         return null;
     }
@@ -92,16 +77,7 @@ public class SaveSetService {
                 flatMap(List::stream).
                 collect(Collectors.toList());
 
-return sortedSetContainers;
-/*
-        return exerciseSetContainerForSetsDTO.
-                stream().
-                map(a -> convertExerciseSetContainerToSetsEntity(a.getExerciseSetContainerDTOs())).
-                collect(Collectors.toList()).
-                stream().
-                flatMap(List::stream).
-                collect(Collectors.toList());
- */
+        return sortedSetContainers;
     }
 
     private List<SetsEntity> convertExerciseSetContainerToSetsEntity(ExerciseSetContainerDTO exerciseSetContainerDTO, UserEntity userEntity, int exerciseId) {

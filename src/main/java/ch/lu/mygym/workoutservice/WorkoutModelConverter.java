@@ -73,9 +73,7 @@ public class WorkoutModelConverter {
                 collect(Collectors.toSet());
 
         Map<Integer, ExerciseEntity> exercises = workout_day_phase_Relations.stream()
-                .collect(Collectors.toMap(z -> z.getExerciseOrder(), z -> z.getExerciseEntity(), (entity1, entity2) -> {
-                    return entity1;
-                }));
+                .collect(Collectors.toMap(z -> z.getExerciseOrder(), z -> z.getExerciseEntity(), (entity1, entity2) -> entity1));
 
         PhaseDTO phaseDTO = new PhaseDTO.
                 Builder().

@@ -1,7 +1,5 @@
 package ch.lu.mygym.workoutservice;
 
-import ch.lu.mygym.dtos.entities.SavedWorkoutsEntity;
-import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,10 +9,6 @@ public interface WorkoutRepository extends CrudRepository<WorkoutEntity, Integer
 
      List<WorkoutEntity> findAll();
 
-     WorkoutEntity findById(int id);
-
      WorkoutEntity save(WorkoutEntity entity);
-
-     List<WorkoutEntity> findBySavedWorkoutsEntity_UserEntity(int userId);
 }
 

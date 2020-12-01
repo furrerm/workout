@@ -6,17 +6,14 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface UserRepository extends CrudRepository<UserEntity, Integer>
- {
+public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
-     List<UserEntity> findAll();
+    List<UserEntity> findAll();
 
-     UserEntity findById(int id);
+    UserEntity findById(int id);
 
-     UserEntity findByRemoteid(String remoteId);
+    UserEntity findByRemoteid(String remoteId);
 
-     UserEntity save(UserEntity entity);
-
-
+    UserEntity save(UserEntity entity);
 }
 

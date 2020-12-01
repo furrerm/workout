@@ -1,4 +1,4 @@
-package ch.lu.mygym.savesetservice;
+package ch.lu.mygym.dtos.plain;
 
 import ch.lu.mygym.dtos.plain.DayDTO;
 

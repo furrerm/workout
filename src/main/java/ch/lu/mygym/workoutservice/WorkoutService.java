@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/workout-service")
 public class WorkoutService {
 
-
-
     @Autowired
     private UserRepository userRepository;
 
@@ -40,15 +38,14 @@ public class WorkoutService {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
-    public Iterable<WorkoutDTO> getPropertyJSON(@RequestBody UserDTO user) {
-
-        System.out.println("check");
-
+    public Set<WorkoutDTO> getSavedWorkoutsFromUser(@RequestBody UserDTO user) {
 
         UserEntity userEntity = userRepository.findById(user.getId());
 
         List<SavedWorkoutsEntity> savedWorkouts = userEntity.getSavedWorkoutEntities();
-        List<WorkoutEntity> workouts = savedWorkouts.stream().map(a -> a.getWorkoutEntity()).collect(Collectors.toList());
+        List<WorkoutEntity> workouts = savedWorkouts.stream().
+                map(a -> a.getWorkoutEntity()).
+                collect(Collectors.toList());
         WorkoutModelConverter workoutConverter = new WorkoutModelConverter();
         Set<WorkoutDTO> workoutDTOs = workoutConverter.convertWorkoutEntitiesToDTO(workouts);
 
@@ -86,43 +83,12 @@ public class WorkoutService {
                     .withClientConfiguration(clientConfiguration1).build();
 
             // Get an object and print its contents.
-            System.out.println("Downloading an object");
             fullObject = s3Client.getObject(new GetObjectRequest(bucketName, key));
 
-            System.out.println("Content-Type: " + fullObject.getObjectMetadata().getContentType());
-            System.out.println("Content: ");
-            //displayTextInputStream(fullObject.getObjectContent());
             return fullObject.getObjectContent().getDelegateStream();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-/*
-    private static void displayTextInputStream(InputStream input) throws IOException {
-        // Read the text input stream one line at a time and display each line.
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
-        }
-        System.out.println();
-    }
-
- */
-
 }
-/*
-class UserId {
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-}
-
- */

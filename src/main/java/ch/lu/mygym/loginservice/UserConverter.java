@@ -19,11 +19,4 @@ public class UserConverter {
 
         return userEntity;
     }
-
-    public static UserDTO convertUserEntityToDTO(UserEntity userEntity) {
-
-        return null;
-    }
-
-
 }

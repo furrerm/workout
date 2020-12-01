@@ -36,7 +36,7 @@ public class WorkoutPreviewService {
     @CrossOrigin // (origins = "http://localhost:4200")
     @GetMapping(value = "/get-workoutpreview-images", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     @ResponseBody
-    public ResponseEntity<InputStreamResource> getPropertyJSON(@RequestParam(defaultValue = "") String url) {
+    public ResponseEntity<InputStreamResource> getImagesFromAWSS3(@RequestParam(defaultValue = "") String url) {
 
         InputStream in = getImage(url);
         InputStreamResource inr = new InputStreamResource(in);
@@ -49,9 +49,6 @@ public class WorkoutPreviewService {
         // todo connection string goes to external .yml file
         String bucketName = "elasticbeanstalk-eu-west-2-345269114307";
         String key = url;
-
-        System.out.println(url);
-
 
         String filePath = System.getProperty("user.dir") + "/webapps/ROOT/.aws/credentials";
         AWSCredentialsProvider awsCredentialsProvider = new ProfileCredentialsProvider(filePath, "app-1-development");
@@ -69,13 +66,8 @@ public class WorkoutPreviewService {
                     .withCredentials(awsCredentialsProvider)
                     .withClientConfiguration(clientConfiguration1).build();
 
-            // Get an object and print its contents.
-            System.out.println("Downloading an object");
             fullObject = s3Client.getObject(new GetObjectRequest(bucketName, key));
 
-            System.out.println("Content-Type: " + fullObject.getObjectMetadata().getContentType());
-            System.out.println("Content: ");
-            //displayTextInputStream(fullObject.getObjectContent());
             return fullObject.getObjectContent().getDelegateStream();
         } catch (Exception e) {
             e.printStackTrace();

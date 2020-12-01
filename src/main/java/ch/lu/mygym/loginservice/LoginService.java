@@ -30,7 +30,6 @@ public class LoginService {
     @Autowired
     private UserRepository userRepository;
 
-    // @CrossOrigin(origins = "http://workoutfrontend-env.eba-tdwzai3v.eu-west-2.elasticbeanstalk.com")
     @CrossOrigin(origins = {"http://workoutfrontend-env.eba-tdwzai3v.eu-west-2.elasticbeanstalk.com", "http://localhost:4200"})
     @PostMapping(value = "/validate",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
@@ -38,7 +37,6 @@ public class LoginService {
     )
     @ResponseBody
     public UserDTO validateLogin(@RequestBody String tokenid) {
-        System.out.println(tokenid);
 
         String tokenDecoded;
         try {
@@ -51,8 +49,6 @@ public class LoginService {
         System.out.println(exerciseDecodedAsJsonString);
 
 
-        Gson jsonHandler = new Gson();
-
         Token token = new Token();
         token.setTokenid(exerciseDecodedAsJsonString);
 
@@ -64,7 +60,6 @@ public class LoginService {
 
         if (firebaseToken != null) {
 
-            // Print user identifier
             uid = firebaseToken.getUid();
 
             userDTO.setUid(uid);
@@ -108,8 +103,6 @@ public class LoginService {
         try {
             InputStream refreshToken = new FileInputStream(System.getProperty("user.dir") + "/refreshToken.json");
 
-            // ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            // InputStream refreshToken = classloader.getResourceAsStream(System.getProperty("user.dir") + "/refreshToken.json");
             options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(refreshToken))
                     .setDatabaseUrl("https://workouttest2.firebaseio.com/")

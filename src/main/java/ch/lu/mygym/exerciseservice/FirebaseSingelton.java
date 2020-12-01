@@ -5,11 +5,7 @@ import com.google.firebase.FirebaseOptions;
 
 public class FirebaseSingelton {
 
-    private static FirebaseApp firebaseInstance;
-
     public static void instanciateFirebase(FirebaseOptions options) {
-        System.out.println(firebaseInstance);
-
         if(FirebaseApp.getApps().isEmpty()){
             new FirebaseSingelton(options);
         }

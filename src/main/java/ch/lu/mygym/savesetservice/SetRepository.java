@@ -6,17 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface SetRepository extends CrudRepository<SetsEntity, Integer>
- {
-
-     List<SetsEntity> findAll();
-
-
-     // RoutineEntity findById(int id);
-
-/*
-     @Query(value = "SELECT max(time) FROM SetsEntity")
-     public LocalDateTime max();
-*/
+public interface SetRepository extends CrudRepository<SetsEntity, Integer> {
 }
 

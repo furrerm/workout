@@ -20,15 +20,7 @@ public class ExerciseSetContainerForSetsDTO {
         return exerciseId;
     }
 
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
-    }
-
     public Set<ExerciseSetContainerDTO> getExerciseSetContainerDTOs() {
         return exerciseSetContainerDTOs;
-    }
-
-    public void setExerciseSetContainerDTOs(Set<ExerciseSetContainerDTO> exerciseSetContainerDTOs) {
-        this.exerciseSetContainerDTOs = exerciseSetContainerDTOs;
     }
 }
