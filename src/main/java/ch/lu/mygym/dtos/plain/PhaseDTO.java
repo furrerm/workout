@@ -9,10 +9,10 @@ public class PhaseDTO implements Comparable{
 
     private int id;
     private String name;
-    private SortedSet<ExerciseDTO> exercises;
+    private List<ExerciseDTO> exercises;
     private int order;
 
-    public PhaseDTO(int id, String name, SortedSet<ExerciseDTO> exercises, int order) {
+    public PhaseDTO(int id, String name, List<ExerciseDTO> exercises, int order) {
         this.id = id;
         this.name = name;
         this.exercises = exercises;
@@ -35,7 +35,7 @@ public class PhaseDTO implements Comparable{
         this.name = name;
     }
 
-    public SortedSet<ExerciseDTO> getExercises() {
+    public List<ExerciseDTO> getExercises() {
         return exercises;
     }
 
@@ -47,7 +47,7 @@ public class PhaseDTO implements Comparable{
         this.order = order;
     }
 
-    public void setExercises(SortedSet<ExerciseDTO> exercises) {
+    public void setExercises(List<ExerciseDTO> exercises) {
         this.exercises = exercises;
     }
 
@@ -59,7 +59,7 @@ public class PhaseDTO implements Comparable{
     public static class Builder {
         private int id;
         private String name;
-        private SortedSet<ExerciseDTO> exercises;
+        private List<ExerciseDTO> exercises;
         private int order;
 
         public Builder withId(int id){
@@ -72,7 +72,7 @@ public class PhaseDTO implements Comparable{
             return this;
         }
 
-        public Builder withExercises(SortedSet<ExerciseDTO> exercises){
+        public Builder withExercises(List<ExerciseDTO> exercises){
             this.exercises = exercises;
             return this;
         }

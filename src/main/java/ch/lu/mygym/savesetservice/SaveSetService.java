@@ -39,7 +39,6 @@ public class SaveSetService {
 
         DayDTO dayDTO = workoutSetDTO.getDayDTO();
 
-        // ExerciseEntity exerciseEntity = exerciseRepository.findById(dayDTO.getId());
         // extract the flattening part in separeted generic class for reuse
 
         List<ExerciseDTO> exercisesDTOs = dayDTO.getPhases().
@@ -47,7 +46,7 @@ public class SaveSetService {
                 map(PhaseDTO::getExercises).
                 collect(Collectors.toList()).
                 stream().
-                flatMap(SortedSet::stream).
+                flatMap(List::stream).
                 collect(Collectors.toList());
 
         List<ExerciseSetContainerForSetsDTO> exerciseSetContainerForSetsDTO = exercisesDTOs.

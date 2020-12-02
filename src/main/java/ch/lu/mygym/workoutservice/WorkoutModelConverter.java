@@ -83,8 +83,7 @@ public class WorkoutModelConverter {
                 withExercises(exercises.keySet().
                         stream().
                         map(q -> convertExerciseEntityToDTO(exercises.get(q),q)).
-                        sorted().
-                        collect(Collectors.toCollection(() -> new TreeSet<>()))).
+                        collect(Collectors.toList())).
                 build();
         return phaseDTO;
     }
