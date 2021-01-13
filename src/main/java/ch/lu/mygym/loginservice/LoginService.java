@@ -2,14 +2,11 @@ package ch.lu.mygym.loginservice;
 
 import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.plain.UserDTO;
-import ch.lu.mygym.exerciseservice.ExerciseRepository;
-import ch.lu.mygym.exerciseservice.FirebaseSingelton;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

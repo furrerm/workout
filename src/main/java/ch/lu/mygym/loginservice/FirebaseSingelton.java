@@ -1,4 +1,4 @@
-package ch.lu.mygym.exerciseservice;
+package ch.lu.mygym.loginservice;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;

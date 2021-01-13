@@ -1,4 +1,4 @@
-package ch.lu.mygym.exerciseservice;
+package ch.lu.mygym.exerciseSetsService;
 
 import ch.lu.mygym.dtos.plain.ExerciseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,18 @@ import java.util.stream.Collectors;
 
 @Controller
 @RestController
-@RequestMapping("/exercise")
-public class ExerciseService {
+@RequestMapping("/exercise-set")
+public class ExerciseSetsService {
 
     @Autowired
-    private ExerciseRepository exerciseRepository;
+    private ExerciseSetsRepository exerciseRepository;
 
     @CrossOrigin // (origins = "http://localhost:4200")
     @GetMapping(value = "/get-sets", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<ExerciseDTO> getPropertyJSON(@RequestParam(defaultValue = "") List<Integer> exerciseIds) {
         // Add the user to parameter list and consider by reading from db
-        ExerciseSetConverter exerciseSetConverter = new ExerciseSetConverter();
+        ExerciseSetsConverter exerciseSetConverter = new ExerciseSetsConverter();
         return exerciseIds.stream()
                 .map(a -> exerciseSetConverter.createPseudoExerciseDTO(a, exerciseRepository.getAllSetsOf(a, 1)))
                 .collect(Collectors.toList());

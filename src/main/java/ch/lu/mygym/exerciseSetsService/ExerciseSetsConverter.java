@@ -1,6 +1,5 @@
-package ch.lu.mygym.exerciseservice;
+package ch.lu.mygym.exerciseSetsService;
 
-import ch.lu.mygym.dtos.entities.ExerciseEntity;
 import ch.lu.mygym.dtos.entities.SetsEntity;
 import ch.lu.mygym.dtos.plain.ExerciseDTO;
 import ch.lu.mygym.dtos.plain.ExerciseSetContainerDTO;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ExerciseSetConverter {
+public class ExerciseSetsConverter {
 
     public ExerciseDTO createPseudoExerciseDTO(int exerciseID, List<SetsEntity> setsEntities){
         return new ExerciseDTO.Builder().withId(exerciseID).withSets(this.converSetsEntitiesToDTOs(setsEntities)).build();
