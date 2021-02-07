@@ -5,6 +5,7 @@ import ch.lu.mygym.dtos.plain.DayDTO;
 import ch.lu.mygym.dtos.plain.ExerciseDTO;
 import ch.lu.mygym.dtos.plain.PhaseDTO;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
+import ch.lu.mygym.loginservice.UserConverter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class WorkoutModelConverter {
                 withId(workoutEntity.getId()).
                 withName(workoutEntity.getName()).
                 withImageUrl(workoutEntity.getImageUrl()).
+                withCreator(new UserConverter().convertUserEntityToDTO(workoutEntity.getUserEntity())).
                 withDays(days.
                         stream().
                         map(b -> convertDayEntityToDTO(b, workout_Relations)).

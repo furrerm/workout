@@ -2,9 +2,6 @@ package ch.lu.mygym.exerciesService;
 
 import ch.lu.mygym.dtos.entities.ExerciseEntity;
 import ch.lu.mygym.dtos.plain.ExerciseDTO;
-import ch.lu.mygym.dtos.plain.UserDTO;
-import ch.lu.mygym.exerciseSetsService.ExerciseSetsConverter;
-import ch.lu.mygym.exerciseSetsService.ExerciseSetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

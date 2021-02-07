@@ -127,7 +127,8 @@ public class LoginService {
     }
 
     public UserEntity saveResult(UserDTO userDTO){
-            UserEntity userEntity = UserConverter.convertUserDTOToEntity(userDTO);
+        UserConverter userConverter = new UserConverter();
+            UserEntity userEntity = userConverter.convertUserDTOToEntity(userDTO);
             return userRepository.save(userEntity);
     }
 }

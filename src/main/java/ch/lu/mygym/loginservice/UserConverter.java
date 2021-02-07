@@ -3,12 +3,9 @@ package ch.lu.mygym.loginservice;
 import ch.lu.mygym.dtos.entities.UserEntity;
 import ch.lu.mygym.dtos.plain.UserDTO;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class UserConverter {
 
-    public static UserEntity convertUserDTOToEntity(UserDTO userDTO) {
+    public UserEntity convertUserDTOToEntity(UserDTO userDTO) {
 
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(userDTO.getEmail());
@@ -18,5 +15,14 @@ public class UserConverter {
         userEntity.setRemoteid(userDTO.getUid());
 
         return userEntity;
+    }
+
+    public UserDTO convertUserEntityToDTO(UserEntity userEntity) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(userEntity.getUserid());
+        userDTO.setEmail(userEntity.getEmail());
+        userDTO.setName(userEntity.getFirstname());
+
+        return userDTO;
     }
 }

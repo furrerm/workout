@@ -15,11 +15,18 @@ public class WorkoutDTO {
     private UserDTO creator;
     private SortedSet<DayDTO> days;
 
-    private WorkoutDTO(int id, String name, String previewImageUrl, byte[] previewImage, SortedSet<DayDTO> days) {
+    private WorkoutDTO(
+            int id,
+            String name,
+            String previewImageUrl,
+            byte[] previewImage,
+            UserDTO creator,
+            SortedSet<DayDTO> days) {
         this.id = id;
         this.name = name;
         this.previewImageUrl = previewImageUrl;
         this.previewImage = previewImage;
+        this.creator = creator;
         this.days = days;
     }
 
@@ -57,7 +64,7 @@ public class WorkoutDTO {
         private String name;
         private String imageUrl;
         private byte[] previewImage;
-        private Optional<UserDTO> creator;
+        private UserDTO creator;
         private SortedSet<DayDTO> days;
 
         public WorkoutBuilder withId(@NonNull int id){
@@ -81,7 +88,7 @@ public class WorkoutDTO {
         }
 
         public WorkoutBuilder withCreator(@NonNull UserDTO creator){
-            this.creator = Optional.of(creator);
+            this.creator =creator;
             return this;
         }
 
@@ -91,7 +98,7 @@ public class WorkoutDTO {
         }
 
         public WorkoutDTO build(){
-            WorkoutDTO workoutDTO = new WorkoutDTO(this.id, this.name, this.imageUrl, this.previewImage, this.days);
+            WorkoutDTO workoutDTO = new WorkoutDTO(this.id, this.name, this.imageUrl, this.previewImage, this.creator, this.days);
             return workoutDTO;
         }
     }
