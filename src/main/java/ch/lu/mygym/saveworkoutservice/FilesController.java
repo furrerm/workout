@@ -35,7 +35,8 @@ public class FilesController {
 
     @CrossOrigin
     @PostMapping("/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    @ResponseBody
+    public String uploadFile(@RequestParam("file") MultipartFile file) {
 
         InputStream inputStream = null;
 
@@ -45,14 +46,14 @@ public class FilesController {
             e.printStackTrace();
         }
         this.saveImage(inputStream, file.getOriginalFilename());
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).
-                body(new ResponseMessage("message from backend saveSetServeice"));
+        ResponseEntity<ResponseMessage> re = ResponseEntity.ok().body(new ResponseMessage("message from backend saveSetServeice"));
+        return "{\"var1\": \"ok\"}";
     }
 
     private void saveImage(InputStream file, String fileName) {
         String bucketName = "elasticbeanstalk-eu-west-2-345269114307";
 
-        String filePath = System.getProperty("user.dir") + "/.aws/credentials";
+        String filePath = System.getProperty("user.dir") + "/webapps/ROOT/.aws/credentials";
         AWSCredentialsProvider awsCredentialsProvider = new ProfileCredentialsProvider(filePath, "app-1-development");
 
         try {

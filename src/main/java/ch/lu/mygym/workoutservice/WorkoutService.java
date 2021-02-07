@@ -60,6 +60,28 @@ public class WorkoutService {
         IOUtils.copy(in, response.getOutputStream());
     }
 
+    @CrossOrigin // (origins = "http://localhost:4200")
+    @PostMapping(value = "/get-workouts2",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public Set<WorkoutDTO> getSavedWorkoutsFromUser2(@RequestBody UserDTO user) {
+
+        UserEntity userEntity = userRepository.findById(user.getId());
+
+        List<SavedWorkoutsEntity> savedWorkouts = userEntity.getSavedWorkoutEntities();
+        List<WorkoutEntity> workouts = savedWorkouts.stream().
+                map(a -> a.getWorkoutEntity()).
+                collect(Collectors.toList());
+        WorkoutModelConverter workoutConverter = new WorkoutModelConverter();
+        // add image
+        Set<WorkoutDTO> workoutDTOs = workoutConverter.convertWorkoutEntitiesToDTO(workouts);
+
+        // add image
+        return workoutDTOs;
+    }
+
     private InputStream getImage() {
 
         // todo connection string goes to external .yml file

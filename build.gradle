@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 war {
-    enabled=true
+    enabled = true
     from('./') {
         //include '**/*.vm'
         into '.ebextensions'
@@ -67,6 +67,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
     compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.0'
 
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.1'
 
 }
 
