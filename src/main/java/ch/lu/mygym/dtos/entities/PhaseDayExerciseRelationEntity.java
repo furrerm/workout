@@ -9,6 +9,7 @@ import java.util.Objects;
 public class PhaseDayExerciseRelationEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -20,21 +21,20 @@ public class PhaseDayExerciseRelationEntity {
     @Column(name = "exercise_order")
     private Integer exerciseOrder;
 
-    @ManyToOne
-    @JoinColumn(name = "phase_id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "phase_id", updatable = false)
     private PhaseEntity phaseEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "workout_id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "workout_id")
     private WorkoutEntity workoutEntity;
 
-
-    @ManyToOne
-    @JoinColumn(name = "day_id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "day_id", updatable = false)
     private DayEntity dayEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "exercise_id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "exercise_id", updatable = false)
     private ExerciseEntity exerciseEntity;
 
     @OneToMany(mappedBy = "phaseDayExerciseRelationEntity", cascade = CascadeType.ALL)

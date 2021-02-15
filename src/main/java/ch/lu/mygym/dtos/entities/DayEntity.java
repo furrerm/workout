@@ -9,6 +9,7 @@ import java.util.Objects;
 public class DayEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private int id;
 

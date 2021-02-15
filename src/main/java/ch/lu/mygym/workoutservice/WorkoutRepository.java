@@ -8,7 +8,5 @@ import java.util.List;
 public interface WorkoutRepository extends CrudRepository<WorkoutEntity, Integer> {
 
      List<WorkoutEntity> findAll();
-
-     WorkoutEntity save(WorkoutEntity entity);
 }
 

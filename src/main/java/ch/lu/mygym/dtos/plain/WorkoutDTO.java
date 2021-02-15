@@ -1,8 +1,10 @@
 package ch.lu.mygym.dtos.plain;
 
+import ch.lu.mygym.saveworkoutservice.WorkoutConverter;
 import org.springframework.lang.NonNull;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
 
@@ -13,7 +15,8 @@ public class WorkoutDTO {
     private String previewImageUrl;
     private byte[] previewImage;
     private UserDTO creator;
-    private SortedSet<DayDTO> days;
+    private List<DayDTO> days;
+    private boolean isSavedFromCurrentUser;
 
     private WorkoutDTO(
             int id,
@@ -21,13 +24,16 @@ public class WorkoutDTO {
             String previewImageUrl,
             byte[] previewImage,
             UserDTO creator,
-            SortedSet<DayDTO> days) {
+            List<DayDTO> days,
+            boolean isSavedFromCurrentUser
+            ) {
         this.id = id;
         this.name = name;
         this.previewImageUrl = previewImageUrl;
         this.previewImage = previewImage;
         this.creator = creator;
         this.days = days;
+        this.isSavedFromCurrentUser = isSavedFromCurrentUser;
     }
 
     public int getId() {
@@ -50,12 +56,16 @@ public class WorkoutDTO {
         return this.creator;
     }
 
-    public SortedSet<DayDTO> getDays() {
+    public List<DayDTO> getDays() {
         return days;
     }
 
-    public void setDays(SortedSet<DayDTO> days) {
+    public void setDays(List<DayDTO> days) {
         this.days = days;
+    }
+
+    public boolean isSavedFromCurrentUser() {
+        return isSavedFromCurrentUser;
     }
 
     public static class WorkoutBuilder{
@@ -65,7 +75,8 @@ public class WorkoutDTO {
         private String imageUrl;
         private byte[] previewImage;
         private UserDTO creator;
-        private SortedSet<DayDTO> days;
+        private List<DayDTO> days;
+        private boolean isSavedFromCurrentUser;
 
         public WorkoutBuilder withId(@NonNull int id){
             this.id = id;
@@ -92,13 +103,18 @@ public class WorkoutDTO {
             return this;
         }
 
-        public WorkoutBuilder withDays(@NonNull SortedSet<DayDTO> days){
+        public WorkoutBuilder withDays(@NonNull List<DayDTO> days){
             this.days = days;
             return this;
         }
 
+        public WorkoutBuilder withIsSavedFromCurrentUser(@NonNull boolean isSavedFromCurrentUser){
+            this.isSavedFromCurrentUser = isSavedFromCurrentUser;
+            return this;
+        }
+
         public WorkoutDTO build(){
-            WorkoutDTO workoutDTO = new WorkoutDTO(this.id, this.name, this.imageUrl, this.previewImage, this.creator, this.days);
+            WorkoutDTO workoutDTO = new WorkoutDTO(this.id, this.name, this.imageUrl, this.previewImage, this.creator, this.days, this.isSavedFromCurrentUser);
             return workoutDTO;
         }
     }

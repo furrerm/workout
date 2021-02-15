@@ -8,11 +8,12 @@ import java.util.Objects;
 public class SavedWorkoutsEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "Id", nullable = false)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "workout_id", insertable=false, updatable=false)
+    @JoinColumn(name = "workout_id")
     private WorkoutEntity workoutEntity;
 
     @ManyToOne

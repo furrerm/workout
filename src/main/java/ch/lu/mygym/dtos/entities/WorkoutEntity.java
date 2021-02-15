@@ -9,8 +9,8 @@ import java.util.Objects;
 public class WorkoutEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @Basic
@@ -27,8 +27,8 @@ public class WorkoutEntity {
     @Column(name = "image_url", nullable = true, length = -1)
     private String imageUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", updatable = false, insertable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", updatable = false)
     private UserEntity userEntity;
 
     public List<PhaseDayExerciseRelationEntity> getPhaseDayExerciseRelationEntities() {

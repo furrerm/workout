@@ -11,5 +11,7 @@ import java.util.List;
 public interface SavedWorkoutsRepository extends CrudRepository<SavedWorkoutsEntity, Integer> {
 
     List<SavedWorkoutsEntity> findByUserEntity_UseridOrderById(int userId);
+    SavedWorkoutsEntity findByUserEntity_UseridAndWorkoutEntity_Id(int userId, int id);
+    SavedWorkoutsEntity deleteByUserEntity_UseridAndWorkoutEntity_Id(int userId, int id);
         
 }
