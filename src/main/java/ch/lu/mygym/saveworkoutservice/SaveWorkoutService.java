@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import ch.lu.mygym.exerciesService.ExerciseRepository;
 import ch.lu.mygym.loginservice.UserRepository;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
@@ -33,6 +34,9 @@ public class SaveWorkoutService {
     @Autowired
     private UserRepository userRepository1;
 
+    @Autowired
+    private ExerciseRepository exerciseRepository;
+
     @CrossOrigin
     @PostMapping(value = "/upload-workout",
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -45,7 +49,7 @@ public class SaveWorkoutService {
     }
 
     private void saveWorkout(WorkoutDTO workoutDTO) {
-        WorkoutConverter converter = new WorkoutConverter(userRepository1);
+        WorkoutConverter converter = new WorkoutConverter(userRepository1, exerciseRepository);
         WorkoutEntity workoutEntity = converter.convertDTOToEntity(workoutDTO);
         this.workoutRepository.save(workoutEntity);
     }

@@ -2,6 +2,7 @@ package ch.lu.mygym.saveworkoutservice;
 
 import ch.lu.mygym.dtos.entities.*;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
+import ch.lu.mygym.exerciesService.ExerciseRepository;
 import ch.lu.mygym.loginservice.UserRepository;
 import org.springframework.stereotype.Controller;
 
@@ -11,9 +12,10 @@ import java.util.List;
 @Controller
 public class WorkoutConverter {
     private final UserRepository userRepository1;
-
-    public WorkoutConverter(UserRepository userRepository1) {
+    private final ExerciseRepository exerciseRepository;
+    public WorkoutConverter(UserRepository userRepository1, ExerciseRepository exerciseRepository) {
         this.userRepository1 = userRepository1;
+        this.exerciseRepository = exerciseRepository;
     }
 
     public WorkoutEntity convertDTOToEntity(WorkoutDTO workoutDTO) {
@@ -31,8 +33,7 @@ public class WorkoutConverter {
                 PhaseEntity phaseEntity = new PhaseEntity();
                 phaseEntity.setName(phaseDTO.getName());
                 phaseDTO.getExercises().forEach(exerciseDTO -> {
-                    ExerciseEntity exerciseEntity = new ExerciseEntity();
-                    exerciseEntity.setName(exerciseDTO.getName());
+                    ExerciseEntity exerciseEntity = this.exerciseRepository.findById(exerciseDTO.getId()).orElseThrow(() -> new RuntimeException("exercise does not exist"));
                     PhaseDayExerciseRelationEntity phaseDayExerciseRelationEntity = new PhaseDayExerciseRelationEntity();
                     phaseDayExerciseRelationEntity.setExerciseEntity(exerciseEntity);
                     phaseDayExerciseRelationEntity.setPhaseEntity(phaseEntity);
