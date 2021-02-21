@@ -8,7 +8,6 @@ import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import ch.lu.mygym.dtos.plain.UserDTO;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
 import ch.lu.mygym.loginservice.UserRepository;
-import ch.lu.mygym.saveworkoutservice.WorkoutConverter;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;

@@ -12,7 +12,7 @@ public class PhaseDTO implements Comparable{
     private List<ExerciseDTO> exercises;
     private int order;
 
-    public PhaseDTO(int id, String name, List<ExerciseDTO> exercises, int order) {
+    private PhaseDTO(int id, String name, List<ExerciseDTO> exercises, int order) {
         this.id = id;
         this.name = name;
         this.exercises = exercises;

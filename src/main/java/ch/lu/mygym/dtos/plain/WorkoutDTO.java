@@ -1,12 +1,9 @@
 package ch.lu.mygym.dtos.plain;
 
-import ch.lu.mygym.saveworkoutservice.WorkoutConverter;
 import org.springframework.lang.NonNull;
 
 
 import java.util.List;
-import java.util.Optional;
-import java.util.SortedSet;
 
 public class WorkoutDTO {
 

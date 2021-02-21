@@ -12,7 +12,7 @@ public class DayDTO implements Comparable{
     private String name;
     private List<PhaseDTO> phases;
 
-    public DayDTO(int id, String name, List<PhaseDTO> days) {
+    private DayDTO(int id, String name, List<PhaseDTO> days) {
         this.id = id;
         this.name = name;
         this.phases = days;

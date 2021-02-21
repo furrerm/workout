@@ -1,4 +1,4 @@
-package ch.lu.mygym.saveworkoutservice;
+package ch.lu.mygym.workoutCreationService;
 
 public class ResponseMessage {
     private String message;

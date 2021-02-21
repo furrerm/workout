@@ -1,10 +1,21 @@
-package ch.lu.mygym.saveworkoutservice;
+package ch.lu.mygym.workoutCreationService;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import ch.lu.mygym.dtos.entities.PhaseEntity;
+import ch.lu.mygym.dtos.plain.DayDTO;
+import ch.lu.mygym.dtos.plain.ExerciseDTO;
+import ch.lu.mygym.dtos.plain.PhaseDTO;
 import ch.lu.mygym.exerciesService.ExerciseRepository;
+import ch.lu.mygym.exerciseSetsService.ExerciseSetsConverter;
 import ch.lu.mygym.loginservice.UserRepository;
 import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
@@ -15,6 +26,7 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +49,12 @@ public class SaveWorkoutService {
     @Autowired
     private ExerciseRepository exerciseRepository;
 
+    @Autowired
+    private PhasesRepository phasesRepository;
+
+    @Autowired
+    private DayRepository dayRepository;
+
     @CrossOrigin
     @PostMapping(value = "/upload-workout",
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -49,7 +67,7 @@ public class SaveWorkoutService {
     }
 
     private void saveWorkout(WorkoutDTO workoutDTO) {
-        WorkoutConverter converter = new WorkoutConverter(userRepository1, exerciseRepository);
+        WorkoutConverter converter = new WorkoutConverter(userRepository1, exerciseRepository, phasesRepository, dayRepository);
         WorkoutEntity workoutEntity = converter.convertDTOToEntity(workoutDTO);
         this.workoutRepository.save(workoutEntity);
     }
@@ -96,5 +114,33 @@ public class SaveWorkoutService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @CrossOrigin // (origins = "http://localhost:4200")
+    @GetMapping(value = "/get-phases", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<PhaseDTO> getPhases() {
+        return IterableUtils.toList(phasesRepository.findAll())
+                .stream()
+                .map(phaseEntity -> new PhaseDTO.Builder()
+                        .withId(phaseEntity.getId())
+                        .withName(phaseEntity.getName())
+                        .withExercises(Collections.EMPTY_LIST)
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    @CrossOrigin // (origins = "http://localhost:4200")
+    @GetMapping(value = "/get-days", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<DayDTO> getDays() {
+        return IterableUtils.toList(dayRepository.findAll())
+                .stream()
+                .map(dayEntity -> new DayDTO.Builder()
+                        .withId(dayEntity.getId())
+                        .withName(dayEntity.getName())
+                        .withPhases(Collections.EMPTY_LIST)
+                        .build())
+                .collect(Collectors.toList());
     }
 }

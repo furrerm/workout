@@ -1,4 +1,4 @@
-package ch.lu.mygym.saveworkoutservice;
+package ch.lu.mygym.workoutCreationService;
 
 import ch.lu.mygym.dtos.entities.*;
 import ch.lu.mygym.dtos.plain.WorkoutDTO;
@@ -13,9 +13,13 @@ import java.util.List;
 public class WorkoutConverter {
     private final UserRepository userRepository1;
     private final ExerciseRepository exerciseRepository;
-    public WorkoutConverter(UserRepository userRepository1, ExerciseRepository exerciseRepository) {
+    private final PhasesRepository phasesRepository;
+    private final DayRepository dayRepository;
+    public WorkoutConverter(UserRepository userRepository1, ExerciseRepository exerciseRepository, PhasesRepository phasesRepository, DayRepository dayRepository) {
         this.userRepository1 = userRepository1;
         this.exerciseRepository = exerciseRepository;
+        this.phasesRepository = phasesRepository;
+        this.dayRepository = dayRepository;
     }
 
     public WorkoutEntity convertDTOToEntity(WorkoutDTO workoutDTO) {
@@ -27,11 +31,9 @@ public class WorkoutConverter {
 
         List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelations = new ArrayList<>();
         workoutDTO.getDays().forEach(dayDTO -> {
-            DayEntity dayEntity = new DayEntity();
-            dayEntity.setName(dayDTO.getName());
+            DayEntity dayEntity = this.dayRepository.findById(dayDTO.getId()).orElseThrow(() -> new RuntimeException("DayDTO not found"));
             dayDTO.getPhases().forEach(phaseDTO -> {
-                PhaseEntity phaseEntity = new PhaseEntity();
-                phaseEntity.setName(phaseDTO.getName());
+                PhaseEntity phaseEntity = phasesRepository.findById(phaseDTO.getId()).orElseThrow(() -> new RuntimeException("phase was not found"));
                 phaseDTO.getExercises().forEach(exerciseDTO -> {
                     ExerciseEntity exerciseEntity = this.exerciseRepository.findById(exerciseDTO.getId()).orElseThrow(() -> new RuntimeException("exercise does not exist"));
                     PhaseDayExerciseRelationEntity phaseDayExerciseRelationEntity = new PhaseDayExerciseRelationEntity();

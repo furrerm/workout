@@ -1,31 +1,13 @@
 package ch.lu.mygym.likeService;
 
 import ch.lu.mygym.dtos.entities.SavedWorkoutsEntity;
-import ch.lu.mygym.dtos.entities.WorkoutEntity;
 import ch.lu.mygym.dtos.plain.SavedWorkoutDTO;
-import ch.lu.mygym.dtos.plain.UserDTO;
-import ch.lu.mygym.dtos.plain.WorkoutDTO;
-import ch.lu.mygym.dtos.plain.WorkoutSetDTO;
-import ch.lu.mygym.exerciseSetsService.ExerciseSetsConverter;
-import ch.lu.mygym.loginservice.UserConverter;
 import ch.lu.mygym.loginservice.UserRepository;
-import ch.lu.mygym.saveworkoutservice.ResponseMessage;
-import ch.lu.mygym.saveworkoutservice.WorkoutConverter;
 import ch.lu.mygym.workoutpreviewservice.SavedWorkoutsRepository;
 import ch.lu.mygym.workoutservice.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @CrossOrigin
