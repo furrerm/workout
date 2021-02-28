@@ -21,6 +21,26 @@ public class PhaseDayExerciseRelationEntity {
     @Column(name = "exercise_order")
     private Integer exerciseOrder;
 
+    @Basic
+    @Column(name = "video_url")
+    private String videoUrl;
+
+    @Basic
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Basic
+    @Column(name = "time_length")
+    private Integer timeLength;
+
+    @Basic
+    @Column(name = "time_based")
+    private boolean timeBased;
+
+    @Basic
+    @Column(name = "weight")
+    private boolean weight;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "phase_id", updatable = false)
     private PhaseEntity phaseEntity;
@@ -96,6 +116,45 @@ public class PhaseDayExerciseRelationEntity {
         this.setsEntity = setsEntity;
     }
 
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Integer getTimeLength() {
+        return timeLength;
+    }
+
+    public void setTimeLength(Integer timeLength) {
+        this.timeLength = timeLength;
+    }
+
+    public boolean isTimeBased() {
+        return timeBased;
+    }
+
+    public void setTimeBased(boolean timeBased) {
+        this.timeBased = timeBased;
+    }
+
+    public boolean isWeight() {
+        return weight;
+    }
+
+    public void setWeight(boolean weight) {
+        this.weight = weight;
+    }
 
     public int getId() {
         return id;
@@ -106,20 +165,12 @@ public class PhaseDayExerciseRelationEntity {
     }
 
 
-
-
-
-
-
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PhaseDayExerciseRelationEntity that = (PhaseDayExerciseRelationEntity) o;
-        return id == that.id ;
+        return id == that.id;
     }
 
     @Override

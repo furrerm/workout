@@ -1,6 +1,7 @@
 package ch.lu.mygym.dtos.entities;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +16,18 @@ public class ExerciseEntity {
     @Basic
     @Column(name = "name", nullable = true, length = 255)
     private String name;
+
+    @Basic
+    @Column(name = "video_url", nullable = true, length = 255)
+    private String videoUrl;
+
+    @Basic
+    @Column(name = "image")
+    private String image;
+
+    @Basic
+    @Column(name = "user_entry_required")
+    private boolean userEntryRequired;
 
     @OneToMany(mappedBy = "exerciseEntity", cascade = CascadeType.ALL)
     private List<PhaseDayExerciseRelationEntity> phaseDayExerciseRelationEntities;
@@ -35,6 +48,30 @@ public class ExerciseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isUserEntryRequired() {
+        return userEntryRequired;
+    }
+
+    public void setUserEntryRequired(boolean userEntryRequired) {
+        this.userEntryRequired = userEntryRequired;
     }
 
     @Override

@@ -56,14 +56,6 @@ public class WorkoutService {
         return workoutDTOs;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/get-workout-images", method = RequestMethod.GET)
-    public void getImageAsByteArray(HttpServletResponse response) throws IOException {
-        InputStream in = getImage();
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        IOUtils.copy(in, response.getOutputStream());
-    }
-
     @CrossOrigin // (origins = "http://localhost:4200")
     @PostMapping(value = "/get-workouts-with-search-criteria",
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -78,37 +70,5 @@ public class WorkoutService {
 
         // add image
         return workoutDTOs;
-    }
-
-    private InputStream getImage() {
-
-        // todo connection string goes to external .yml file
-        String bucketName = "elasticbeanstalk-eu-west-2-345269114307";
-        String key = "resources/testImage.jpeg";
-
-        String filePath = System.getProperty("user.dir") + "/webapps/ROOT/.aws/credentials";
-        AWSCredentialsProvider awsCredentialsProvider = new ProfileCredentialsProvider(filePath, "app-1-development");
-
-        S3Object fullObject;
-        try {
-
-            ClientConfiguration clientConfiguration1 = new ClientConfiguration();
-            clientConfiguration1.setConnectionTimeout(50000);
-            clientConfiguration1.setMaxConnections(500);
-            clientConfiguration1.setSocketTimeout(50000);
-            clientConfiguration1.setMaxErrorRetry(10);
-
-            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                    .withCredentials(awsCredentialsProvider)
-                    .withClientConfiguration(clientConfiguration1).build();
-
-            // Get an object and print its contents.
-            fullObject = s3Client.getObject(new GetObjectRequest(bucketName, key));
-
-            return fullObject.getObjectContent().getDelegateStream();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

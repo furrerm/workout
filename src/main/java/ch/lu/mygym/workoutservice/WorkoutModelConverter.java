@@ -32,7 +32,7 @@ public class WorkoutModelConverter {
                         sorted().
                         collect(Collectors.toList())).
                 withIsSavedFromCurrentUser(isWorkoutSavedByUser(workoutEntity, currentUser)).
-        build();
+                build();
         return workoutDTO;
     }
 
@@ -71,28 +71,31 @@ public class WorkoutModelConverter {
                 filter(z -> z.getPhaseEntity().equals(phaseEntity)).
                 collect(Collectors.toSet());
 
-        Map<Integer, ExerciseEntity> exercises = workout_day_phase_Relations.stream()
-                .collect(Collectors.toMap(z -> z.getExerciseOrder(), z -> z.getExerciseEntity(), (entity1, entity2) -> entity1));
-
         PhaseDTO phaseDTO = new PhaseDTO.
                 Builder().
                 withId(phaseEntity.getId()).
                 withName(phaseEntity.getName()).
                 withOrder(order).
-                withExercises(exercises.keySet().
+                withExercises(workout_day_phase_Relations.
                         stream().
-                        map(q -> convertExerciseEntityToDTO(exercises.get(q), q)).
+                        map(re -> this.convertExerciseEntityToDTO(re)).
                         collect(Collectors.toList())).
                 build();
         return phaseDTO;
     }
 
-    private ExerciseDTO convertExerciseEntityToDTO(ExerciseEntity exerciseEntity, int order) {
+    private ExerciseDTO convertExerciseEntityToDTO(PhaseDayExerciseRelationEntity phaseDayExerciseRelationEntity) {
+        ExerciseEntity exerciseEntity = phaseDayExerciseRelationEntity.getExerciseEntity();
         return new ExerciseDTO.
                 Builder().
                 withId(exerciseEntity.getId()).
                 withName(exerciseEntity.getName()).
-                withOrder(order).
+                withOrder(phaseDayExerciseRelationEntity.getExerciseOrder()).
+                withVideoUrl(exerciseEntity.getVideoUrl()).
+                withImage(exerciseEntity.getImage()).
+                withTimeBased(phaseDayExerciseRelationEntity.isTimeBased()).
+                withTimeLength(phaseDayExerciseRelationEntity.getTimeLength()).
+                withWeight(phaseDayExerciseRelationEntity.isWeight()).
                 build();
     }
 
