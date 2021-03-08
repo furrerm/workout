@@ -96,6 +96,7 @@ public class WorkoutModelConverter {
                 withTimeBased(phaseDayExerciseRelationEntity.isTimeBased()).
                 withTimeLength(phaseDayExerciseRelationEntity.getTimeLength()).
                 withWeight(phaseDayExerciseRelationEntity.isWeight()).
+                withUserEntryRequired(exerciseEntity.isUserEntryRequired()).
                 build();
     }
 
